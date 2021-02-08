@@ -56,10 +56,7 @@ const ProgramsCarousel = ({ navigation, openBottomSheet }) => {
               underlayColor='white'
               style={styles.card}
               key={item.voucherTrackingUrl + 1}
-              onPress={() => {
-                openBottomSheet(item);
-                setCurrentCouponActive(item);
-              }}
+
               // onPress={() => {
               //   navigation.navigate("CouponDetails", {
               //     item,

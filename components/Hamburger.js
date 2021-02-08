@@ -10,14 +10,16 @@ import {
   Image,
 } from "react-native";
 import colors from "../theme/colors";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const Hamburger = ({ navigation }) => {
   return (
     <View style={{ flexDirection: "row" }}>
-      <Image
-        source={require("../assets/hamburger.png")}
-        fadeDuration={0}
-        style={{ width: 30, height: 30, padding: 10, marginLeft: 15 }}
+      <Icon
+        name='menu'
+        size={40}
+        style={{ marginTop: 10, marginLeft: 10 }}
+        color='white'
       />
     </View>
   );

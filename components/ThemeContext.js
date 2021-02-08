@@ -11,23 +11,20 @@ export function useThemeUpdate() {
 }
 
 export function ThemeProvider({ children }) {
-  const [programs, setPrograms] = useState();
-  const [coupons, setCoupons] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [activeCategory, setActiveCategory] = useState(222);
-  const [currentCouponActive, setCurrentCouponActive] = useState();
+  const [activeCategory, setActiveCategory] = useState(999);
 
   return (
     <ThemeContext.Provider
       value={{
-        programs,
-        setPrograms,
+        posts,
+        setPosts,
         activeCategory,
         setActiveCategory,
-        coupons,
-        setCoupons,
-        currentCouponActive,
-        setCurrentCouponActive,
+        loading,
+        setLoading,
       }}
     >
       <ThemeUpdateContext.Provider value={{}}>

@@ -12,6 +12,7 @@ import {
 // import FontIcon from "react-native-vector-icons/FontAwesome5";
 // import { SimpleAnimation } from 'react-native-simple-animations'
 import { useTheme, useThemeUpdate } from "./ThemeContext";
+import FontIcon from "react-native-vector-icons/FontAwesome5";
 
 import colors from "../theme/colors";
 
@@ -22,122 +23,43 @@ const Categories = ({ navigation, programs }) => {
 
   const categories = [
     {
-      categoryId: 17,
+      id: 999,
       icon: "hamburger",
-
-      name: "Jedzenie",
+      name: "Wszystko",
     },
     {
-      categoryId: 12,
+      id: 3,
+      icon: "hamburger",
+      name: "Olejki CBD",
+    },
+    {
+      id: 2,
       icon: "tv",
-      name: "Gadżety",
+      name: "Susz",
     },
 
     {
-      categoryId: 10,
+      id: 4,
       icon: "shopping-basket",
-
-      name: "Moda",
+      name: "Herbaty",
     },
     {
-      categoryId: 11,
-      icon: "spa",
-
-      name: "Zdrowie i uroda",
-    },
-
-    {
-      categoryId: 3,
-      icon: "home",
-
-      name: "Dom i ogród",
-    },
-
-    {
-      categoryId: 16,
-      icon: "heart",
-
-      name: "Sport i rekreacja",
+      id: 5,
+      icon: "shopping-basket",
+      name: "Jointy",
     },
     {
-      categoryId: 9,
-      icon: "lightbulb",
-      name: "Elektronika",
+      id: 6,
+      icon: "shopping-basket",
+      name: "Kosmetyki",
     },
     {
-      categoryId: 4,
-      icon: "child",
-
-      name: "Dla dziecka",
-    },
-    {
-      categoryId: 2,
-      name: "Biżuteria i zegarki",
-      icon: "circle",
-    },
-
-    {
-      categoryId: 8,
-      icon: "headphones",
-
-      name: "Książki, muzyka, film,",
-    },
-    {
-      categoryId: 13,
-      icon: "car",
-
-      name: "Motoryzacja",
-    },
-    {
-      categoryId: 1,
-      icon: "suitcase",
-
-      name: "Biuro i firma",
-    },
-    {
-      categoryId: 5,
-      icon: "circle",
-
-      name: "Szkolenia",
-    },
-    {
-      categoryId: 14,
-      icon: "venus-mars",
-
-      name: "Erotyka",
-    },
-
-    {
-      categoryId: 19,
-      icon: "circle",
-
-      name: "Usługi",
-    },
-    {
-      categoryId: 20,
-      icon: "circle",
-
-      name: "Artykuły plastyczne",
-    },
-    {
-      categoryId: 21,
-      icon: "circle",
-
-      name: "Multibranżowy",
-    },
-    {
-      categoryId: 22,
-      icon: "circle",
-
-      name: "Lifestyle",
-    },
-    {
-      categoryId: 25,
-      icon: "circle",
-
-      name: "Zwierzęta",
+      id: 7,
+      icon: "shopping-basket",
+      name: "Liquidy do Vape",
     },
   ];
+
   return (
     <View style={styles.root}>
       <ScrollView
@@ -149,41 +71,34 @@ const Categories = ({ navigation, programs }) => {
       >
         {categories.map((item) => (
           <TouchableHighlight
-            key={item.categoryId}
+            key={item.id}
             activeOpacity={0.3}
             style={{
               ...styles.carouselItem,
-              // backgroundColor:
-              //   activeCategory === item.categoryId
-              //     ? colors.primary
-              //     : colors.lightGrey,
+              backgroundColor:
+                activeCategory === item.id ? colors.primary : colors.white,
             }}
             onPress={() => {
-              navigation.navigate("Listing");
-              setActiveCategory(item.categoryId);
-              console.log(item.categoryId);
+              console.log(item.name);
+              setActiveCategory(item.id);
             }}
           >
             <View style={styles.pill}>
-              {/* <FontIcon
+              <FontIcon
                 name={item.icon}
                 color={colors.primary}
                 size={15}
                 style={{
                   ...styles.icon,
                   color:
-                    activeCategory === item.categoryId
-                      ? colors.lightPurple
-                      : colors.primary,
+                    activeCategory === item.id ? colors.white : colors.primary,
                 }}
-              /> */}
+              />
               <Text
                 style={{
                   ...styles.carouselText,
-                  // color:
-                  //   activeCategory === item.categoryId
-                  //     ? colors.black
-                  //     : colors.black,
+                  color:
+                    activeCategory == item.id ? colors.white : colors.primary,
                 }}
               >
                 {item.name}
@@ -197,7 +112,7 @@ const Categories = ({ navigation, programs }) => {
 };
 export const styles = StyleSheet.create({
   root: {
-    paddingVertical: 0,
+    paddingVertical: 10,
     paddingHorizontal: 0,
   },
   title: {

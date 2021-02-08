@@ -6,66 +6,116 @@ import { ThemeProvider } from "./components/ThemeContext.js";
 import * as React from "react";
 import { Button, View, Text, TouchableOpacity, Image } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationActions } from "react-navigation";
 
 import FirstPage from "./pages/Home";
 import Home from "./pages/Home";
-import Listing from "./pages/Listing";
+import Shop from "./pages/Shop";
+import SingleView from "./pages/SingleView";
 import ThirdPage from "./pages/ThirdPage";
 import Hamburger from "./components/Hamburger.js";
-
+import ShopIcon from "./components/ShopIcon.js";
+import Logo from "./components/Logo.js";
+import NewsIcon from "./components/NewsIcon.js";
+import colors from "./theme/colors";
+// import ScrollableTabView from "react-native-scrollable-tab-view";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const NavigationDrawerStructure = (props) => {
+const LeftNav = (props) => {
   //Structure for the navigatin Drawer
   const toggleDrawer = () => {
-    //Props to open/close the drawer
     props.navigationProps.toggleDrawer();
   };
   return (
-    <TouchableOpacity onPress={() => toggleDrawer()}>
+    <TouchableOpacity
+      onPress={() => props.navigationProps.toggleDrawer()}
+      style={{ flexDirection: "row" }}
+    >
       <Hamburger />
     </TouchableOpacity>
   );
 };
+const RightNav = ({ navigation }) => {
+  //Structure for the navigatin Drawer
 
-function firstScreenStack({ navigation }) {
+  return (
+    <View style={{ flexDirection: "row" }}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("Home", {
+            screen: "Home",
+            initial: false,
+          })
+        }
+      >
+        <NewsIcon />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Shop", {})}>
+        <ShopIcon />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+function homeStack({ navigation }) {
   return (
     <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen
         name='Home'
         component={Home}
         options={{
-          title: "", //Set Header Title
-          headerLeft: () => (
-            <NavigationDrawerStructure navigationProps={navigation} />
-          ),
+          title: <Logo />, //Set Header Title
+          headerLeft: () => <LeftNav navigation={navigation} />,
+          headerRight: () => <RightNav navigation={navigation} />,
           headerStyle: {
-            // backgroundColor: "#f4511e", //Set Header color
+            backgroundColor: "#000000", //Set Header color
           },
-          headerTintColor: "#fff", //Set Header text color
+          headerTintColor: colors.primary, //Set Header text color
           headerTitleStyle: {
-            fontWeight: "bold", //Set Header text style
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            fontSize: 14,
           },
         }}
       />
       <Stack.Screen
-        name='Listing'
-        component={Listing}
+        name='Shop'
+        component={Shop}
         options={{
-          title: "Najnowsze kupony rabatowe", //Set Header Title
-          headerLeft: () => (
-            <NavigationDrawerStructure navigationProps={navigation} />
-          ),
+          title: <Logo />, //Set Header Title
+          headerLeft: () => <LeftNav navigation={navigation} />,
+          headerRight: () => <RightNav navigation={navigation} />,
           headerStyle: {
-            // backgroundColor: "#f4511e", //Set Header color
+            backgroundColor: "#000000", //Set Header color
           },
-          headerTintColor: "#fff", //Set Header text color
+          headerTintColor: colors.primary, //Set Header text color
           headerTitleStyle: {
-            fontWeight: "bold", //Set Header text style
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            fontSize: 14,
+          },
+        }}
+      />
+      <Stack.Screen
+        name='SingleView'
+        component={SingleView}
+        options={{
+          title: <Logo />, //Set Header Title
+          headerLeft: () => <LeftNav navigation={navigation} />,
+          headerRight: () => <RightNav navigation={navigation} />,
+          headerStyle: {
+            backgroundColor: "#000000", //Set Header color
+          },
+
+          headerTintColor: colors.primary, //Set Header text color
+          headerTitleStyle: {
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            fontSize: 14,
           },
         }}
       />
@@ -78,11 +128,9 @@ function secondScreenStack({ navigation }) {
     <Stack.Navigator
       initialRouteName='SecondPage'
       screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
+        headerLeft: () => <LeftNav navigation={navigation} />,
         headerStyle: {
-          backgroundColor: "#f4511e", //Set Header color
+          // backgroundColor: "#f4511e", //Set Header color
         },
         headerTintColor: "#fff", //Set Header text color
         headerTitleStyle: {
@@ -94,14 +142,14 @@ function secondScreenStack({ navigation }) {
         name='SecondPage'
         component={SecondPage}
         options={{
-          title: "Second Page", //Set Header Title
+          title: "Second Pageee", //Set Header Title
         }}
       />
       <Stack.Screen
         name='ThirdPage'
         component={ThirdPage}
         options={{
-          title: "Third Page", //Set Header Title
+          title: "Third Pageee", //Set Header Title
         }}
       />
     </Stack.Navigator>
@@ -119,14 +167,9 @@ function App() {
           }}
         >
           <Drawer.Screen
-            name='FirstPage'
-            options={{ drawerLabel: "First page Option" }}
-            component={firstScreenStack}
-          />
-          <Drawer.Screen
-            name='SecondPage'
-            options={{ drawerLabel: "Second page Option" }}
-            component={secondScreenStack}
+            name='Home'
+            options={{ drawerLabel: "Newsy" }}
+            component={homeStack}
           />
         </Drawer.Navigator>
       </NavigationContainer>
